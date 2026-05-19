@@ -1,0 +1,63 @@
+/* ── AUREO · SIDEBAR ────────────────────────────────────────────
+   App shell, logo, step indicators, form scroll area.
+─────────────────────────────────────────────────────────────── */
+
+/* App shell */
+.app { display:flex; min-height:100vh }
+
+/* ── Sidebar container ── */
+.sidebar {
+  width      : 100%;
+  max-width  : 500px;
+  min-height : 100vh;
+  background : var(--bg2);
+  border-right: 1px solid var(--border);
+  display    : flex;
+  flex-direction: column;
+  position   : relative;
+  overflow   : hidden;
+  flex-shrink: 0;
+}
+.sidebar::before {
+  content   : '';
+  position  : absolute;
+  top:-60px; right:-60px;
+  width:260px; height:260px;
+  background: radial-gradient(circle,rgba(200,169,110,.07) 0%,transparent 70%);
+  border-radius:50%;
+  animation : glow 8s ease-in-out infinite;
+  pointer-events:none;
+}
+
+/* ── Logo ── */
+.sidebar-hdr  { padding:28px 32px 0; position:relative; z-index:1 }
+.logo         { font-family:'Cinzel',serif; font-size:20px; font-weight:400; letter-spacing:.18em; color:var(--ch); text-shadow:0 0 24px rgba(200,169,110,.28) }
+.logo-sub     { font-family:'Montserrat',sans-serif; font-size:9px; font-weight:300; letter-spacing:.42em; color:rgba(200,169,110,.4); margin-top:3px; text-transform:uppercase }
+
+/* ── Step indicators ── */
+.steps        { display:flex; align-items:center; padding:22px 32px 0; position:relative; z-index:1 }
+.step         { display:flex; flex-direction:column; align-items:center; gap:5px; flex:1; cursor:pointer; transition:opacity .3s }
+.step:not(.active) { opacity:.28 }
+.snum         { width:26px; height:26px; border-radius:50%; border:1px solid var(--border); background:var(--bg3); display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:300; color:var(--ch-dim); transition:all .4s }
+.step.active .snum,
+.step.done   .snum  { border-color:var(--ch); background:rgba(200,169,110,.12); color:var(--ch) }
+.slbl         { font-size:7px; letter-spacing:.36em; text-transform:uppercase; color:var(--ch-dim); text-align:center }
+.sline        { flex:1; height:1px; background:var(--border); margin-bottom:16px; align-self:flex-start; margin-top:13px; transition:background .4s }
+.sline.done   { background:var(--ch-dim) }
+
+/* ── Scrollable form area ── */
+.fscroll      { flex:1; overflow-y:auto; padding:22px 32px 32px; scrollbar-width:thin; scrollbar-color:var(--border) transparent }
+.fscroll::-webkit-scrollbar       { width:2px }
+.fscroll::-webkit-scrollbar-thumb { background:var(--border); border-radius:2px }
+
+/* ── Panel transitions ── */
+.panel        { display:none; animation:fadeIn .4s ease }
+.panel.active { display:block }
+.ptitle       { font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:200; font-style:italic; color:var(--cream); margin-bottom:4px; line-height:1.25 }
+.psub         { font-size:11px; font-weight:300; color:var(--dim); line-height:1.75; margin-bottom:22px; letter-spacing:.03em }
+
+/* ── Section divider ── */
+.sdiv         { display:flex; align-items:center; gap:10px; margin:18px 0 14px }
+.sdiv::before,
+.sdiv::after  { content:''; flex:1; height:1px; background:var(--border) }
+.sdiv span    { font-size:8px; letter-spacing:.35em; text-transform:uppercase; color:var(--ch-dim); white-space:nowrap }

@@ -1,0 +1,77 @@
+/* ── AUREO · FORM FIELDS ────────────────────────────────────────
+   Inputs, selects, textareas, chips, toggles, plan cards, buttons.
+─────────────────────────────────────────────────────────────── */
+
+/* ── Grid helpers ── */
+.field  { margin-bottom:18px }
+.flbl   { display:block; font-size:8px; font-weight:300; letter-spacing:.44em; text-transform:uppercase; color:var(--ch-dim); margin-bottom:7px }
+.flbl s { color:var(--err); text-decoration:none; margin-left:2px }
+.frow   { display:grid; grid-template-columns:1fr 1fr;     gap:11px }
+.frow3  { display:grid; grid-template-columns:1fr 1fr 1fr; gap:11px }
+
+/* ── Inputs ── */
+input, textarea, select {
+  width         : 100%;
+  background    : rgba(200,169,110,.05);
+  border        : 1px solid var(--border);
+  border-radius : 9px;
+  padding       : 12px 15px;
+  font-family   : 'Montserrat', sans-serif;
+  font-size     : 13px;
+  font-weight   : 300;
+  color         : var(--cream);
+  letter-spacing: .02em;
+  transition    : all .3s;
+  outline       : none;
+  -webkit-appearance: none;
+}
+input:focus, textarea:focus, select:focus {
+  border-color: var(--ch);
+  background  : rgba(200,169,110,.08);
+  box-shadow  : 0 0 16px rgba(200,169,110,.11);
+}
+input::placeholder, textarea::placeholder { color:rgba(200,169,110,.26); font-style:italic }
+select option { background:#1c1828; color:var(--cream) }
+textarea      { resize:none; min-height:72px; line-height:1.7 }
+
+/* ── Chips ── */
+.chips      { display:flex; flex-wrap:wrap; gap:7px }
+.chip       { padding:7px 14px; border-radius:100px; border:1px solid var(--border); background:transparent; font-family:'Montserrat',sans-serif; font-size:10px; font-weight:300; letter-spacing:.15em; text-transform:uppercase; color:var(--ch-dim); cursor:pointer; transition:all .3s }
+.chip:hover { border-color:var(--bhi); color:var(--ch) }
+.chip.sel   { border-color:var(--ch); background:rgba(200,169,110,.1); color:var(--ch) }
+
+/* ── Music tabs ── */
+.mtabs      { display:flex; gap:7px; margin-bottom:8px }
+.mtab       { padding:7px 13px; border-radius:7px; border:1px solid var(--border); background:transparent; font-family:'Montserrat',sans-serif; font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:var(--ch-dim); cursor:pointer; transition:all .3s }
+.mtab.on    { border-color:var(--ch); background:rgba(200,169,110,.1); color:var(--ch) }
+.mpanel     { display:none }
+.mpanel.on  { display:block }
+
+/* ── Section toggles ── */
+.toggles    { display:flex; flex-direction:column; gap:8px }
+.trow       { display:flex; align-items:center; gap:10px; padding:11px 14px; border-radius:9px; border:1px solid var(--border); background:var(--ch-g); cursor:pointer; transition:all .3s }
+.trow:hover { border-color:var(--bhi) }
+.trow.on    { border-color:rgba(200,169,110,.28); background:rgba(200,169,110,.08) }
+.tlbl       { font-size:11px; font-weight:300; letter-spacing:.06em; color:var(--dim); flex:1 }
+.tico       { font-size:13px; flex-shrink:0 }
+.tsw        { width:34px; height:19px; border-radius:9px; background:rgba(200,169,110,.1); border:1px solid var(--border); position:relative; transition:all .3s; flex-shrink:0 }
+.tsw::after { content:''; position:absolute; top:2px; left:2px; width:13px; height:13px; border-radius:50%; background:var(--ch-dim); transition:all .3s }
+.trow.on .tsw          { background:rgba(200,169,110,.26); border-color:var(--ch) }
+.trow.on .tsw::after   { left:17px; background:var(--ch) }
+
+/* ── Plan cards ── */
+.pcard       { padding:15px 17px; border-radius:11px; border:1px solid var(--border); background:var(--ch-g); cursor:pointer; transition:all .3s; margin-bottom:9px; display:flex; align-items:center; justify-content:space-between }
+.pcard:hover { border-color:var(--bhi) }
+.pcard.sel   { border-color:var(--ch); background:rgba(200,169,110,.11) }
+.pname       { font-size:12px; font-weight:300; letter-spacing:.08em; color:var(--cream) }
+.pprice      { font-size:11px; color:var(--ch-dim) }
+
+/* ── Navigation buttons ── */
+.fnav       { display:flex; gap:10px; padding-top:20px; border-top:1px solid var(--border); margin-top:4px }
+.bbk        { padding:12px 20px; border-radius:9px; border:1px solid var(--border); background:transparent; font-family:'Montserrat',sans-serif; font-size:9px; font-weight:300; letter-spacing:.34em; text-transform:uppercase; color:var(--ch-dim); cursor:pointer; transition:all .3s }
+.bbk:hover  { border-color:var(--bhi); color:var(--ch) }
+.bnx        { flex:1; padding:13px; border-radius:9px; border:1px solid rgba(200,169,110,.28); background:linear-gradient(135deg,rgba(200,169,110,.14),rgba(200,169,110,.07)); font-family:'Montserrat',sans-serif; font-size:9px; font-weight:300; letter-spacing:.4em; text-transform:uppercase; color:var(--ch); cursor:pointer; transition:all .4s }
+.bnx:hover  { background:rgba(200,169,110,.2); border-color:var(--ch); box-shadow:0 0 20px rgba(200,169,110,.16) }
+.bgen       { flex:1; padding:14px; border-radius:9px; border:none; background:linear-gradient(135deg,var(--ch),var(--ch-lt)); font-family:'Montserrat',sans-serif; font-size:10px; font-weight:400; letter-spacing:.4em; text-transform:uppercase; color:#0c0a14; cursor:pointer; transition:all .4s; box-shadow:0 4px 20px rgba(200,169,110,.22) }
+.bgen:hover     { transform:translateY(-2px); box-shadow:0 8px 36px rgba(200,169,110,.36) }
+.bgen:disabled  { opacity:.45; cursor:not-allowed; transform:none }

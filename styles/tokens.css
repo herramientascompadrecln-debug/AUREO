@@ -1,0 +1,39 @@
+/* ── AUREO · DESIGN TOKENS ──────────────────────────────────────
+   Single source of truth for all colors, spacing, and typography.
+   Import this first in every stylesheet.
+─────────────────────────────────────────────────────────────── */
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+
+:root{
+  /* Backgrounds */
+  --bg   : #0c0a14;
+  --bg2  : #14111f;
+  --bg3  : #1c1828;
+
+  /* Champagne palette */
+  --ch     : #c8a96e;
+  --ch-lt  : #e8d49a;
+  --ch-dim : #8a7045;
+  --ch-g   : rgba(200,169,110,.09);
+
+  /* Neutrals */
+  --cream : #f8f0e0;
+  --dim   : rgba(248,240,224,.55);
+
+  /* Borders */
+  --border : rgba(200,169,110,.16);
+  --bhi    : rgba(200,169,110,.38);
+
+  /* States */
+  --err : rgba(220,80,80,.8);
+}
+
+body{
+  background : var(--bg);
+  color      : #e8dcc8;
+  font-family: 'Montserrat', sans-serif;
+  min-height : 100vh;
+  overflow-x : hidden;
+}

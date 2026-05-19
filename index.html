@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Aureo — Generador de Invitaciones Premium</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,200;0,300;0,400;1,200;1,300;1,400&family=Montserrat:wght@200;300;400;500&family=Cinzel:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- ── Styles (order matters) ── -->
+<link rel="stylesheet" href="styles/tokens.css">
+<link rel="stylesheet" href="styles/animations.css">
+<link rel="stylesheet" href="styles/sidebar.css">
+<link rel="stylesheet" href="styles/fields.css">
+<link rel="stylesheet" href="styles/preview.css">
+</head>
+<body>
+<div class="app">
+
+  <!-- ═══════ SIDEBAR ═══════ -->
+  <aside class="sidebar">
+    <div class="sidebar-hdr">
+      <div class="logo">AUREO</div>
+      <div class="logo-sub">Invitaciones Digitales Premium</div>
+    </div>
+
+    <div class="steps" id="steps">
+      <div class="step active" data-s="1" onclick="goS(1)"><div class="snum"><span>1</span></div><div class="slbl">Evento</div></div>
+      <div class="sline" id="l12"></div>
+      <div class="step" data-s="2" onclick="goS(2)"><div class="snum"><span>2</span></div><div class="slbl">Estilo</div></div>
+      <div class="sline" id="l23"></div>
+      <div class="step" data-s="3" onclick="goS(3)"><div class="snum"><span>3</span></div><div class="slbl">Fotos</div></div>
+      <div class="sline" id="l34"></div>
+      <div class="step" data-s="4" onclick="goS(4)"><div class="snum"><span>4</span></div><div class="slbl">Generar</div></div>
+    </div>
+
+    <div class="fscroll">
+
+      <!-- ── Panel 1: Evento ── -->
+      <div class="panel active" id="p1">
+        <h2 class="ptitle">El Evento</h2>
+        <p class="psub">Datos que aparecerán en la invitación.</p>
+
+        <div class="field">
+          <label class="flbl">Tipo de evento <s>*</s></label>
+          <div class="chips" id="chtipo">
+            <div class="chip sel" data-v="Boda">💍 Boda</div>
+            <div class="chip" data-v="XV Anos">👑 XV Años</div>
+            <div class="chip" data-v="Infantil">🎈 Infantil</div>
+            <div class="chip" data-v="Bautizo">🕊 Bautizo</div>
+            <div class="chip" data-v="Baby Shower">🌸 Baby Shower</div>
+            <div class="chip" data-v="Gender Reveal">✨ Gender Reveal</div>
+            <div class="chip" data-v="Corporativo">🏢 Corporativo</div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="flbl">Nombre(s) principales <s>*</s></label>
+          <input type="text" id="fn" placeholder="Ej: Valeria &amp; Christian">
+        </div>
+
+        <div class="sdiv"><span>Fecha y hora</span></div>
+        <div class="frow3">
+          <div class="field"><label class="flbl">Día <s>*</s></label><input type="number" id="fdd" min="1" max="31" placeholder="20"></div>
+          <div class="field">
+            <label class="flbl">Mes <s>*</s></label>
+            <select id="fmm">
+              <option value="">Mes</option>
+              <option value="enero">Enero</option><option value="febrero">Febrero</option>
+              <option value="marzo">Marzo</option><option value="abril">Abril</option>
+              <option value="mayo">Mayo</option><option value="junio">Junio</option>
+              <option value="julio">Julio</option><option value="agosto">Agosto</option>
+              <option value="septiembre">Septiembre</option><option value="octubre">Octubre</option>
+              <option value="noviembre">Noviembre</option><option value="diciembre">Diciembre</option>
+            </select>
+          </div>
+          <div class="field"><label class="flbl">Año <s>*</s></label><input type="number" id="fyy" min="2025" max="2030" placeholder="2026"></div>
+        </div>
+
+        <div class="sdiv"><span>Ceremonia</span></div>
+        <div class="field"><label class="flbl">Lugar de la ceremonia</label><input type="text" id="fv1" placeholder="Ej: Parroquia San Martín de Porres"></div>
+        <div class="frow">
+          <div class="field"><label class="flbl">Hora ceremonia</label><input type="time" id="ft1" value="16:00"></div>
+          <div class="field"><label class="flbl">Link Google Maps</label><input type="url" id="fm1" placeholder="https://maps.google.com/..."></div>
+        </div>
+
+        <div class="sdiv"><span>Recepción</span></div>
+        <div class="field"><label class="flbl">Lugar de la recepción</label><input type="text" id="fv2" placeholder="Ej: Salón Inglés"></div>
+        <div class="frow">
+          <div class="field"><label class="flbl">Hora recepción</label><input type="time" id="ft2" value="20:00"></div>
+          <div class="field"><label class="flbl">Link Google Maps</label><input type="url" id="fm2" placeholder="https://maps.google.com/..."></div>
+        </div>
+
+        <div class="sdiv"><span>Datos adicionales</span></div>
+        <div class="field"><label class="flbl">Dress Code</label><input type="text" id="fdc" placeholder="Ej: Formal · Blanco para los novios"></div>
+        <div class="field"><label class="flbl">WhatsApp para RSVP</label><input type="tel" id="fwa" placeholder="+52 55 0000 0000"></div>
+
+        <div class="fnav"><button class="bnx" onclick="nx()">Continuar →</button></div>
+      </div>
+
+      <!-- ── Panel 2: Estilo ── -->
+      <div class="panel" id="p2">
+        <h2 class="ptitle">Estilo &amp; Feeling</h2>
+        <p class="psub">Define la experiencia visual y emocional.</p>
+
+        <div class="field">
+          <label class="flbl">Estilo visual</label>
+          <div class="chips" id="chestilo">
+            <div class="chip sel" data-v="Dark Luxury">✦ Dark Luxury</div>
+            <div class="chip" data-v="Romantico">🌹 Romántico</div>
+            <div class="chip" data-v="Minimalista">◦ Minimalista</div>
+            <div class="chip" data-v="Cinematografico">🎬 Cinematográfico</div>
+            <div class="chip" data-v="Elegante">👑 Elegante Clásico</div>
+            <div class="chip" data-v="Moderno">✧ Moderno</div>
+            <div class="chip" data-v="Magico">✨ Mágico</div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="flbl">Template</label>
+          <div class="chips" id="chtpl">
+            <div class="chip tpl-chip sel" data-v="DarkLuxuryWedding" onclick="setTemplate('DarkLuxuryWedding',this)">🖤 Dark Luxury</div>
+            <div class="chip tpl-chip" data-v="EditorialMinimal"   onclick="setTemplate('EditorialMinimal',this)">◻ Editorial</div>
+            <div class="chip tpl-chip" data-v="XVPrincess"         onclick="setTemplate('XVPrincess',this)">👑 XV Princess</div>
+            <div class="chip tpl-chip" data-v="KidsFantasy"        onclick="setTemplate('KidsFantasy',this)">🎈 Kids Fantasy</div>
+            <div class="chip tpl-chip" data-v="CorporateLuxury"    onclick="setTemplate('CorporateLuxury',this)">🏢 Corporate</div>
+          </div>
+        </div>
+
+        <div class="field"><label class="flbl">Feeling a transmitir</label><input type="text" id="ffeel" placeholder="Ej: lujo, emoción, romanticismo, elegancia..."></div>
+        <div class="field"><label class="flbl">Frase o mensaje principal</label><textarea id="ffrase" placeholder="Dejar vacío para mensaje predeterminado Aureo según el tipo de evento"></textarea></div>
+
+        <div class="field">
+          <label class="flbl">Secciones a incluir</label>
+          <div class="toggles">
+            <div class="trow on" data-k="gallery"   onclick="tog(this)"><span class="tico">📸</span><span class="tlbl">Galería reel cinematográfico</span><div class="tsw"></div></div>
+            <div class="trow on" data-k="countdown" onclick="tog(this)"><span class="tico">⏳</span><span class="tlbl">Cuenta regresiva en portada</span><div class="tsw"></div></div>
+            <div class="trow on" data-k="location"  onclick="tog(this)"><span class="tico">📍</span><span class="tlbl">Mapas de ubicación</span><div class="tsw"></div></div>
+            <div class="trow on" data-k="gifts"     onclick="tog(this)"><span class="tico">🎁</span><span class="tlbl">Mesa de regalos</span><div class="tsw"></div></div>
+            <div class="trow on" data-k="rsvp"      onclick="tog(this)"><span class="tico">💬</span><span class="tlbl">Confirmación RSVP (WhatsApp)</span><div class="tsw"></div></div>
+            <div class="trow on" data-k="music"     onclick="tog(this)"><span class="tico">🎵</span><span class="tlbl">Música ambiental</span><div class="tsw"></div></div>
+          </div>
+        </div>
+
+        <div id="musicfield" class="field">
+          <label class="flbl">Música — elige cómo enviarla</label>
+          <div class="mtabs">
+            <button class="mtab on"  onclick="setMT('file',this)">📁 Subir MP3</button>
+            <button class="mtab"     onclick="setMT('link',this)">🔗 YouTube / Spotify</button>
+            <button class="mtab"     onclick="setMT('name',this)">🎵 Nombre</button>
+          </div>
+          <div class="mpanel on" id="mt-file">
+            <div class="uzone" id="audioz" style="position:relative">
+              <input type="file" accept="audio/mp3,audio/mpeg,audio/*" id="audiofile" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;z-index:2">
+              <span class="uicon">🎵</span>
+              <div class="utxt" id="audiotxt">Toca aquí para subir tu MP3</div>
+              <div class="uhint">Formatos: MP3, M4A, OGG · Máx 15MB</div>
+            </div>
+          </div>
+          <div class="mpanel" id="mt-link"><input type="url" id="fmlink" placeholder="https://youtube.com/watch?v=..."></div>
+          <div class="mpanel" id="mt-name"><input type="text" id="fmname" placeholder="Ej: Perfect — Ed Sheeran"></div>
+        </div>
+
+        <div class="sdiv"><span>Mesa de regalos</span></div>
+        <div class="field"><label class="flbl">Mensaje de regalos</label><textarea id="fgm" style="min-height:58px" placeholder="Tu presencia es lo más importante..."></textarea></div>
+        <div class="field"><label class="flbl">Link (Liverpool, Amazon, etc.)</label><input type="url" id="fgl" placeholder="https://..."></div>
+
+        <div class="fnav">
+          <button class="bbk" onclick="pv()">← Volver</button>
+          <button class="bnx" onclick="nx()">Continuar →</button>
+        </div>
+      </div>
+
+      <!-- ── Panel 3: Fotos ── -->
+      <div class="panel" id="p3">
+        <h2 class="ptitle">Fotos</h2>
+        <p class="psub">Las fotos son el alma. Alta resolución = resultado premium.</p>
+
+        <div class="field">
+          <label class="flbl">Foto Hero — portada <s>*</s></label>
+          <div class="uzone"><input type="file" accept="image/*" onchange="upImg(event,'hero')"><span class="uicon">🖼</span><div class="utxt">Foto principal · Primera impresión</div><div class="uhint">Vertical 4:5 · Alta resolución · Fondo bokeh ideal</div><div class="uprev" id="pv-hero"></div></div>
+        </div>
+        <div class="field">
+          <label class="flbl">Fotos galería reel</label>
+          <div class="uzone"><input type="file" accept="image/*" multiple onchange="upImg(event,'gallery')"><span class="uicon">📷</span><div class="utxt">Momentos juntos · Historia visual</div><div class="uhint">Hasta 6 fotos · Variedad recomendada</div><div class="uprev" id="pv-gal"></div></div>
+        </div>
+        <div class="field">
+          <label class="flbl">Foto de cierre</label>
+          <div class="uzone"><input type="file" accept="image/*" onchange="upImg(event,'closing')"><span class="uicon">💫</span><div class="utxt">Foto final · Impresión memorable</div><div class="uhint">Emotiva · Puede repetirse del Hero</div><div class="uprev" id="pv-close"></div></div>
+        </div>
+
+        <div class="fnav">
+          <button class="bbk" onclick="pv()">← Volver</button>
+          <button class="bnx" onclick="nx()">Continuar →</button>
+        </div>
+      </div>
+
+      <!-- ── Panel 4: Generar ── -->
+      <div class="panel" id="p4">
+        <h2 class="ptitle">Todo listo</h2>
+        <p class="psub">Revisa y genera tu invitación premium.</p>
+        <div id="summary"></div>
+
+        <div class="field">
+          <label class="flbl">Tipo de experiencia</label>
+          <div class="pcard sel" data-v="Signature" onclick="selP(this)"><span class="pname">✦✦ Signature — Experiencia completa</span><span class="pprice">$799 mxn</span></div>
+          <div class="pcard"     data-v="Essential" onclick="selP(this)"><span class="pname">✦ Essential — Esencial y funcional</span><span class="pprice">$499 mxn</span></div>
+          <div class="pcard"     data-v="Black"     onclick="selP(this)"><span class="pname">✦✦✦ Black — Ultra premium</span><span class="pprice">$1,299 mxn</span></div>
+        </div>
+
+        <div class="fnav" style="flex-direction:column;gap:9px">
+          <button class="bgen" id="gbtn" onclick="gen()">✦ Generar Invitación</button>
+          <button class="bbk" onclick="pv()">← Volver</button>
+        </div>
+      </div>
+
+    </div><!-- /fscroll -->
+  </aside>
+
+  <!-- ═══════ PREVIEW ═══════ -->
+  <main class="preview">
+    <div class="phdr">
+      <span class="ptag">Vista previa</span>
+      <div class="pacts">
+        <button class="pdbtn on" onclick="setDev('mobile',this)">📱 Móvil</button>
+        <button class="pdbtn"    onclick="setDev('desktop',this)">🖥 Escritorio</button>
+        <button class="bdl" id="dlbtn" onclick="dlInv()">⬇ Descargar</button>
+      </div>
+    </div>
+    <div class="pbody">
+      <div class="devframe" id="devframe">
+        <div class="pph" id="pph">
+          <div class="pphi">✦</div>
+          <div class="ppht">Tu invitación aparecerá aquí</div>
+          <div class="pphs">Completa el formulario · Presiona generar</div>
+        </div>
+        <iframe id="invframe" title="Invitación"></iframe>
+        <div class="genovl" id="genovl">
+          <div class="gspin"></div>
+          <div class="gt">Creando tu invitación</div>
+          <div class="gs">Diseñando con IA · Un momento...</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+</div><!-- /app -->
+<div class="toast" id="toast"></div>
+
+<!-- ── Scripts (load order: dependencies first) ── -->
+<script src="scripts/state.js"></script>
+<script src="scripts/helpers.js"></script>
+<script src="scripts/toast.js"></script>
+<script src="templates/tipoConfig.js"></script>
+<script src="templates/aiPrompt.js"></script>
+<script src="templates/invitationStyles.js"></script>
+<script src="templates/invitationScripts.js"></script>
+<script src="components/sections-a.js"></script>
+<script src="components/sections-b.js"></script>
+<script src="templates/localBuilder.js"></script>
+<script src="scripts/mediaHandlers.js"></script>
+<script src="scripts/formNav.js"></script>
+<script src="scripts/preview.js"></script>
+<script src="scripts/livePreview.js"></script>
+<script src="templates/themes/EditorialMinimal.js"></script>
+<script src="templates/themes/XVPrincess.js"></script>
+<script src="templates/themes/KidsFantasy.js"></script>
+<script src="templates/themes/CorporateLuxury.js"></script>
+<script src="templates/registry.js"></script>
+<script src="scripts/generator.js"></script>
+<script>
+/* ── Boot live preview after all modules are loaded ── */
+document.addEventListener('DOMContentLoaded', () => {
+  livePreview.init();
+});
+
+/* ── Acknowledge iframe ready signal ── */
+window.addEventListener('message', e => {
+  if (e.data && e.data.type === 'AUREO_READY') {
+    /* Iframe just loaded — push current state immediately */
+    livePreview.flush();
+  }
+});
+</script>
+</body>
+</html>
