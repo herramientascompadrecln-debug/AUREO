@@ -1,0 +1,284 @@
+/* ── AUREO · styles/dnd.css ─────────────────────────────────────
+   Drag & drop section panel.
+   Slides in from the right edge of the devframe.
+   Luxury tech aesthetic. Zero overlap with existing styles.
+─────────────────────────────────────────────────────────────── */
+
+.btn-dnd {
+  padding: 7px 16px;
+  border-radius: 6px;
+  border: 1px solid rgba(200,169,110,.22);
+  background: transparent;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 8px;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: var(--ch-dim);
+  cursor: pointer;
+  transition: all .3s;
+  display: none;
+}
+.btn-dnd.visible     { display: block }
+.btn-dnd.active,
+.btn-dnd:hover       { border-color: var(--ch); color: var(--ch); background: rgba(200,169,110,.07) }
+
+#dnd-panel {
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  width: 216px;
+  background: rgba(10,8,18,.97);
+  border-left: 1px solid rgba(200,169,110,.12);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  display: flex;
+  flex-direction: column;
+  z-index: 300;
+  transform: translateX(100%);
+  transition: transform .36s cubic-bezier(.16,1,.3,1);
+  overflow: hidden;
+  box-shadow: -12px 0 48px rgba(0,0,0,.55);
+}
+#dnd-panel.open { transform: translateX(0) }
+
+.dnd-hdr {
+  padding: 14px 16px 12px;
+  border-bottom: 1px solid rgba(200,169,110,.09);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+.dnd-title {
+  font-family: 'Cinzel', serif;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: .44em;
+  text-transform: uppercase;
+  color: var(--ch);
+  text-shadow: 0 0 12px rgba(200,169,110,.28);
+}
+.dnd-close {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  border: 1px solid rgba(200,169,110,.16);
+  background: transparent;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px;
+  color: var(--ch-dim);
+  line-height: 1;
+  transition: all .25s;
+}
+.dnd-close:hover { border-color: var(--ch); color: var(--ch) }
+
+.dnd-hint {
+  padding: 10px 16px 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 7px;
+  font-weight: 300;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: rgba(200,169,110,.32);
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(200,169,110,.06);
+}
+
+.dnd-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 10px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(200,169,110,.1) transparent;
+}
+.dnd-list::-webkit-scrollbar       { width: 2px }
+.dnd-list::-webkit-scrollbar-thumb { background: rgba(200,169,110,.12); border-radius: 1px }
+
+.dnd-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 11px;
+  border-radius: 7px;
+  border: 1px solid rgba(200,169,110,.09);
+  background: rgba(200,169,110,.025);
+  cursor: grab;
+  transition: border-color .2s, background .2s, opacity .2s, transform .18s;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.dnd-item:hover           { border-color: rgba(200,169,110,.22); background: rgba(200,169,110,.06) }
+.dnd-item.dragging        { opacity: .38; cursor: grabbing; border-color: var(--ch); transform: scale(.97) }
+.dnd-item.drag-over       { border-color: var(--ch); border-style: dashed; background: rgba(200,169,110,.07) }
+.dnd-item.fixed           { cursor: default; opacity: .48 }
+.dnd-item.fixed:hover     { border-color: rgba(200,169,110,.09); background: rgba(200,169,110,.025) }
+
+.dnd-handle { color: rgba(200,169,110,.28); font-size: 11px; flex-shrink: 0; letter-spacing: -.1em; line-height: 1 }
+.dnd-ico    { font-size: 13px; flex-shrink: 0; line-height: 1 }
+.dnd-label  {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 300;
+  color: var(--dim);
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dnd-reset {
+  margin: 0 10px 12px;
+  padding: 9px;
+  border-radius: 7px;
+  border: 1px solid rgba(200,169,110,.1);
+  background: transparent;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 8px;
+  font-weight: 300;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--ch-dim);
+  cursor: pointer;
+  transition: all .25s;
+  flex-shrink: 0;
+}
+.dnd-reset:hover { border-color: var(--bhi); color: var(--ch) }
+
+#devframe.dnd-open { margin-right: 218px; transition: margin-right .36s cubic-bezier(.16,1,.3,1) }
+
+@media (max-width: 900px) {
+  #dnd-panel         { width: 188px }
+  #devframe.dnd-open { margin-right: 190px }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FASE 4B — Show / Hide Sections
+   Appended to dnd.css. Scoped to .dnd-tabs and .sh-* selectors.
+═══════════════════════════════════════════════════════════════ */
+
+/* ── Tab bar inside #dnd-panel ── */
+.dnd-tabs {
+  display        : flex;
+  border-bottom  : 1px solid rgba(200,169,110,.09);
+  flex-shrink    : 0;
+}
+.dnd-tab {
+  flex           : 1;
+  padding        : 8px 4px;
+  font-family    : 'Montserrat', sans-serif;
+  font-size      : 7px;
+  font-weight    : 300;
+  letter-spacing : .3em;
+  text-transform : uppercase;
+  color          : var(--ch-dim);
+  background     : transparent;
+  border         : none;
+  border-bottom  : 1px solid transparent;
+  cursor         : pointer;
+  transition     : all .22s;
+  text-align     : center;
+}
+.dnd-tab.on       { color: var(--ch); border-bottom-color: var(--ch); background: rgba(200,169,110,.04) }
+.dnd-tab:hover    { color: var(--ch) }
+
+/* ── Panes ── */
+.dnd-pane         { display: none; flex: 1; overflow: hidden; flex-direction: column }
+.dnd-pane.on      { display: flex }
+
+/* ── Show/hide toggle list ── */
+.sh-list {
+  flex           : 1;
+  overflow-y     : auto;
+  padding        : 10px 10px 16px;
+  display        : flex;
+  flex-direction : column;
+  gap            : 5px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(200,169,110,.1) transparent;
+}
+.sh-list::-webkit-scrollbar       { width: 2px }
+.sh-list::-webkit-scrollbar-thumb { background: rgba(200,169,110,.12); border-radius: 1px }
+
+/* ── Section toggle row ── */
+.sh-row {
+  display        : flex;
+  align-items    : center;
+  gap            : 9px;
+  padding        : 9px 11px;
+  border-radius  : 7px;
+  border         : 1px solid rgba(200,169,110,.09);
+  background     : rgba(200,169,110,.025);
+  transition     : border-color .2s, background .2s;
+  cursor         : pointer;
+  user-select    : none;
+}
+.sh-row:hover          { border-color: rgba(200,169,110,.2); background: rgba(200,169,110,.055) }
+.sh-row.hidden-sec     { opacity: .42 }
+.sh-row.fixed-sec      { cursor: default }
+.sh-row.fixed-sec:hover{ border-color: rgba(200,169,110,.09); background: rgba(200,169,110,.025) }
+
+.sh-ico  { font-size: 13px; flex-shrink: 0; line-height: 1 }
+.sh-label {
+  font-family    : 'Montserrat', sans-serif;
+  font-size      : 10px;
+  font-weight    : 300;
+  color          : var(--dim);
+  flex           : 1;
+  min-width      : 0;
+  white-space    : nowrap;
+  overflow       : hidden;
+  text-overflow  : ellipsis;
+}
+
+/* ── Toggle switch ── */
+.sh-sw {
+  width          : 28px;
+  height         : 16px;
+  border-radius  : 8px;
+  background     : rgba(200,169,110,.1);
+  border         : 1px solid rgba(200,169,110,.16);
+  position       : relative;
+  flex-shrink    : 0;
+  transition     : all .25s;
+}
+.sh-sw::after {
+  content        : '';
+  position       : absolute;
+  top            : 2px;
+  left           : 2px;
+  width          : 10px;
+  height         : 10px;
+  border-radius  : 50%;
+  background     : var(--ch-dim);
+  transition     : all .25s;
+}
+.sh-row.on .sh-sw              { background: rgba(200,169,110,.26); border-color: var(--ch) }
+.sh-row.on .sh-sw::after       { left: 14px; background: var(--ch) }
+.sh-row.fixed-sec .sh-sw       { opacity: .38 }
+
+/* ── All on / all off shortcut ── */
+.sh-actions {
+  display        : flex;
+  gap            : 6px;
+  padding        : 0 10px 12px;
+  flex-shrink    : 0;
+}
+.sh-act {
+  flex           : 1;
+  padding        : 7px 6px;
+  border-radius  : 6px;
+  border         : 1px solid rgba(200,169,110,.11);
+  background     : transparent;
+  font-family    : 'Montserrat', sans-serif;
+  font-size      : 7px;
+  font-weight    : 300;
+  letter-spacing : .28em;
+  text-transform : uppercase;
+  color          : var(--ch-dim);
+  cursor         : pointer;
+  transition     : all .22s;
+  text-align     : center;
+}
+.sh-act:hover { border-color: var(--ch); color: var(--ch); background: rgba(200,169,110,.06) }

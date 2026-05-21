@@ -294,6 +294,43 @@ ${audioBlock}
       /* Countdown */
       const cdWrap = document.querySelector('.hcd-wrap');
       if(cdWrap) cdWrap.style.display = v.countdown ? '' : 'none';
+      /* Intro section */
+      if(v.intro != null){const el=document.querySelector('.intro');if(el)el.style.display=v.intro?'':' none';}
+      /* Moment / emotional quote */
+      if(v.moment != null){const el=document.querySelector('.mom');if(el)el.style.display=v.moment?'':'none';}
+      /* Details section */
+      if(v.details != null){const el=document.querySelector('.det');if(el)el.style.display=v.details?'':'none';}
+    },
+
+    /* sectionVisibility — posted by sectionDnd._postVisibility()
+       Handles ALL sections including hero + closing which are excluded from S.sec.
+       Uses display:none — elements stay in DOM (export remains complete). */
+    sectionVisibility: v => {
+      if(!v) return;
+      const MAP = {
+        hero    : '#hero',
+        intro   : '.intro',
+        gallery : '.reel-sec',
+        moment  : '.mom',
+        details : '.det',
+        location: '.loc',
+        gifts   : '.gifts',
+        rsvp    : '.rsvp',
+        closing : '#closing',
+        brand   : '.brand-sec',
+        countdown: null,  /* handled via sec.countdown → .hcd-wrap */
+      };
+      Object.entries(v).forEach(([id, visible]) => {
+        const sel = MAP[id];
+        if(!sel) return;
+        const el = document.querySelector(sel);
+        if(el) el.style.display = visible ? '' : 'none';
+      });
+      /* Countdown lives inside hero — toggle separately */
+      if(v.countdown != null){
+        const cd = document.querySelector('.hcd-wrap');
+        if(cd) cd.style.display = v.countdown ? '' : 'none';
+      }
     },
 
     /* Hero photo */
@@ -429,7 +466,39 @@ ${audioBlock}
         }
       }
     },
-  };
+
+    /* ── sectionOrder: moves actual DOM section nodes in the iframe ──
+       Called by sectionDnd._postOrder() via postMessage.
+       Preserves existing event listeners — uses appendChild (move, not clone).
+       #final is always kept last.                                        */
+    sectionOrder: v => {
+      if (!v || !v.length) return;
+      const SEL = {
+        hero    : '#hero',
+        intro   : '.intro',
+        gallery : '.reel-sec',
+        moment  : '.mom',
+        details : '.det',
+        location: '.loc',
+        gifts   : '.gifts',
+        rsvp    : '.rsvp',
+        closing : '#closing',
+        brand   : '.brand-sec',
+      };
+      const parent = document.body;
+      /* Map ids → elements, skip any not found */
+      const els = v.map(id => {
+        const sel = SEL[id];
+        return sel ? document.querySelector(sel) : null;
+      }).filter(Boolean);
+      /* Move in new order — appendChild moves existing nodes, no cloning */
+      els.forEach(el => parent.appendChild(el));
+      /* Always keep #final at the very end */
+      const fin = document.getElementById('final');
+      if (fin) parent.appendChild(fin);
+    },
+
+  };  /* ← end PATCHES */
 
   /* Redefine tick to use module-scoped _T */
   function tick(){

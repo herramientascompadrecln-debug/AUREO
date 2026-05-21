@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="styles/sidebar.css">
 <link rel="stylesheet" href="styles/fields.css">
 <link rel="stylesheet" href="styles/preview.css">
+<link rel="stylesheet" href="styles/dnd.css">
 </head>
 <body>
 <div class="app">
@@ -226,6 +227,7 @@
       <div class="pacts">
         <button class="pdbtn on" onclick="setDev('mobile',this)">📱 Móvil</button>
         <button class="pdbtn"    onclick="setDev('desktop',this)">🖥 Escritorio</button>
+        <button class="btn-dnd" id="btn-dnd" onclick="sectionDnd.toggle()">⠿ Secciones</button>
         <button class="bdl" id="dlbtn" onclick="dlInv()">⬇ Descargar</button>
       </div>
     </div>
@@ -242,6 +244,16 @@
           <div class="gt">Creando tu invitación</div>
           <div class="gs">Diseñando con IA · Un momento...</div>
         </div>
+        <!-- ── Section reorder panel ── -->
+        <div id="dnd-panel">
+          <div class="dnd-hdr">
+            <span class="dnd-title">Secciones</span>
+            <button class="dnd-close" onclick="sectionDnd.close()">✕</button>
+          </div>
+          <div class="dnd-hint">Arrastra para reordenar</div>
+          <div class="dnd-list" id="dnd-list"></div>
+          <button class="dnd-reset" onclick="sectionDnd.reset()">↺ Restablecer</button>
+        </div>
       </div>
     </div>
   </main>
@@ -253,34 +265,36 @@
 <script src="scripts/state.js"></script>
 <script src="scripts/helpers.js"></script>
 <script src="scripts/toast.js"></script>
-<script src="templates/tipoConfig.js"></script>
-<script src="templates/aiPrompt.js"></script>
-<script src="templates/invitationStyles.js"></script>
-<script src="templates/invitationScripts.js"></script>
+<script src="templates/tipoconfig.js"></script>
+<script src="templates/aiprompt.js"></script>
+<script src="templates/invitationstyles.js"></script>
+<script src="templates/invitationscripts.js"></script>
 <script src="components/sections-a.js"></script>
 <script src="components/sections-b.js"></script>
-<script src="templates/localBuilder.js"></script>
-<script src="scripts/mediaHandlers.js"></script>
-<script src="scripts/formNav.js"></script>
+<script src="templates/localbuilder.js"></script>
+<script src="scripts/mediahandlers.js"></script>
+<script src="scripts/formnav.js"></script>
 <script src="scripts/preview.js"></script>
-<script src="scripts/livePreview.js"></script>
-<script src="templates/themes/EditorialMinimal.js"></script>
-<script src="templates/themes/XVPrincess.js"></script>
-<script src="templates/themes/KidsFantasy.js"></script>
-<script src="templates/themes/CorporateLuxury.js"></script>
+<script src="scripts/livepreview.js"></script>
+<script src="templates/themes/editorialminimal.js"></script>
+<script src="templates/themes/xvprincess.js"></script>
+<script src="templates/themes/kidsfantasy.js"></script>
+<script src="templates/themes/corporateluxury.js"></script>
 <script src="templates/registry.js"></script>
 <script src="scripts/generator.js"></script>
+<script src="scripts/sectiondnd.js"></script>
 <script>
-/* ── Boot live preview after all modules are loaded ── */
+/* ── Boot ── */
 document.addEventListener('DOMContentLoaded', () => {
   livePreview.init();
 });
 
-/* ── Acknowledge iframe ready signal ── */
+/* ── Iframe ready: flush live state + reveal DnD button ── */
 window.addEventListener('message', e => {
   if (e.data && e.data.type === 'AUREO_READY') {
-    /* Iframe just loaded — push current state immediately */
     livePreview.flush();
+    /* Reveal the section reorder button */
+    if (typeof sectionDnd !== 'undefined') sectionDnd.onFrameReady();
   }
 });
 </script>
