@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="styles/preview.css">
 <link rel="stylesheet" href="styles/dnd.css">
 <link rel="stylesheet" href="styles/moods.css">
+<link rel="stylesheet" href="styles/polish.css">
 </head>
 <body>
 <div class="app">
@@ -36,6 +37,10 @@
       <div class="step" data-s="3" onclick="goS(3)"><div class="snum"><span>3</span></div><div class="slbl">Fotos</div></div>
       <div class="sline" id="l34"></div>
       <div class="step" data-s="4" onclick="goS(4)"><div class="snum"><span>4</span></div><div class="slbl">Generar</div></div>
+      <div class="sline" id="l45"></div>
+      <div class="step" data-s="5" onclick="setS(5);quickText.syncMirrors()"><div class="snum"><span>✦</span></div><div class="slbl">Textos</div></div>
+      <div class="sline" id="l56"></div>
+      <div class="step" data-s="6" onclick="setS(6)"><div class="snum"><span>◈</span></div><div class="slbl">Pulido</div></div>
     </div>
 
     <div class="fscroll">
@@ -218,6 +223,162 @@
         </div>
       </div>
 
+      <!-- ── Panel 5: Textos ── -->
+      <div class="panel" id="p5">
+        <h2 class="ptitle">Edición rápida</h2>
+        <p class="psub">Ajusta textos al instante. Los cambios se reflejan en la vista previa sin regenerar.</p>
+
+        <div class="sdiv"><span>Nombres</span></div>
+        <div class="field">
+          <label class="flbl">Nombres principales</label>
+          <input type="text" id="qt-names" placeholder="Ej: Valeria &amp; Christian">
+        </div>
+
+        <div class="sdiv"><span>Mensaje principal</span></div>
+        <div class="field">
+          <label class="flbl">Frase o headline intro</label>
+          <textarea id="qt-frase" style="min-height:68px" placeholder="Un amor que nació sin querer queriendo..."></textarea>
+        </div>
+
+        <div class="sdiv"><span>Galería</span></div>
+        <div class="field">
+          <label class="flbl">Título de sección</label>
+          <input type="text" id="qt-galtitle" placeholder="Nuestra Historia">
+        </div>
+
+        <div class="sdiv"><span>Detalles</span></div>
+        <div class="field">
+          <label class="flbl">Título de sección</label>
+          <input type="text" id="qt-dettitle" placeholder="Detalles del Evento">
+        </div>
+
+        <div class="sdiv"><span>Ubicación</span></div>
+        <div class="field">
+          <label class="flbl">Título de sección</label>
+          <input type="text" id="qt-loctitle" placeholder="Ubicación">
+        </div>
+
+        <div class="sdiv"><span>Regalos</span></div>
+        <div class="field">
+          <label class="flbl">Título de sección</label>
+          <input type="text" id="qt-giftstitle" placeholder="Tu presencia es el mejor regalo">
+        </div>
+        <div class="field">
+          <label class="flbl">Mensaje de regalos</label>
+          <textarea id="qt-gm" style="min-height:58px" placeholder="Tu presencia es lo más importante..."></textarea>
+        </div>
+
+        <div class="sdiv"><span>RSVP</span></div>
+        <div class="field">
+          <label class="flbl">Subtítulo RSVP</label>
+          <input type="text" id="qt-rsvpsub" placeholder="Confirma tu asistencia">
+        </div>
+        <div class="field">
+          <label class="flbl">Encabezado RSVP</label>
+          <input type="text" id="qt-rsvpheading" placeholder="¿Nos Acompañas?">
+        </div>
+        <div class="field">
+          <label class="flbl">Texto botón WhatsApp</label>
+          <input type="text" id="qt-rsvpbtn" placeholder="Confirmar asistencia">
+        </div>
+
+        <div class="sdiv"><span>Sección cierre</span></div>
+        <div class="field">
+          <label class="flbl">Frase emotiva</label>
+          <input type="text" id="qt-closingtag" placeholder="Con todo nuestro amor">
+        </div>
+        <div class="field">
+          <label class="flbl">Mensaje de cierre</label>
+          <textarea id="qt-closingmsg" style="min-height:72px" placeholder="Gracias por ser parte de esta historia."></textarea>
+        </div>
+
+        <div class="sdiv"><span>Pie de página</span></div>
+        <div class="field">
+          <label class="flbl">Texto branding</label>
+          <input type="text" id="qt-brandheart" placeholder="Creado con amor para momentos que merecen brillar">
+        </div>
+
+        <div class="fnav">
+          <button class="bbk" onclick="setS(4)">← Generar</button>
+        </div>
+      </div>
+
+      <!-- ── Panel 6: Visual Polish ── -->
+      <div class="panel" id="p6">
+        <h2 class="ptitle">Pulido visual</h2>
+        <p class="psub">Afina la intensidad visual de tu invitación. Los cambios se reflejan al instante.</p>
+
+        <p class="vp-hint">Mueve los controles — la vista previa responde en tiempo real.</p>
+
+        <div class="sdiv"><span>Luz y Glow</span></div>
+
+        <div class="vp-group">
+          <label class="vp-label">Intensidad glow <span class="vp-val" id="vp-glow-val">100%</span></label>
+          <div class="vp-row">
+            <input type="range" class="vp-slider" id="vp-glow" min="0" max="200" value="100" step="1">
+          </div>
+        </div>
+
+        <div class="vp-group">
+          <label class="vp-label">Intensidad gradients <span class="vp-val" id="vp-gradient-val">100%</span></label>
+          <div class="vp-row">
+            <input type="range" class="vp-slider" id="vp-gradient" min="0" max="200" value="100" step="1">
+          </div>
+        </div>
+
+        <div class="vp-group">
+          <label class="vp-label">Overlay foto <span class="vp-val" id="vp-overlay-val">100%</span></label>
+          <div class="vp-row">
+            <input type="range" class="vp-slider" id="vp-overlay" min="0" max="200" value="100" step="1">
+          </div>
+        </div>
+
+        <div class="sdiv"><span>Profundidad</span></div>
+
+        <div class="vp-group">
+          <label class="vp-label">Blur ambiental <span class="vp-val" id="vp-blur-val">12px</span></label>
+          <div class="vp-row">
+            <input type="range" class="vp-slider" id="vp-blur" min="0" max="24" value="12" step="1">
+          </div>
+        </div>
+
+        <div class="vp-group">
+          <label class="vp-label">Profundidad sombras <span class="vp-val" id="vp-shadow-val">100%</span></label>
+          <div class="vp-row">
+            <input type="range" class="vp-slider" id="vp-shadow" min="0" max="200" value="100" step="1">
+          </div>
+        </div>
+
+        <div class="sdiv"><span>Composición</span></div>
+
+        <div class="vp-group">
+          <label class="vp-label">Ancho de contenido <span class="vp-val" id="vp-cw-val">440px</span></label>
+          <div class="vp-row">
+            <input type="range" class="vp-slider" id="vp-cw" min="320" max="600" value="440" step="4">
+          </div>
+        </div>
+
+        <div class="vp-group">
+          <label class="vp-label">Separación vertical <span class="vp-val" id="vp-vgap-val">72px</span></label>
+          <div class="vp-row">
+            <input type="range" class="vp-slider" id="vp-vgap" min="0" max="120" value="72" step="2">
+          </div>
+        </div>
+
+        <div class="vp-group">
+          <label class="vp-label">Radio de bordes <span class="vp-val" id="vp-radius-val">16px</span></label>
+          <div class="vp-row">
+            <input type="range" class="vp-slider" id="vp-radius" min="0" max="32" value="16" step="1">
+          </div>
+        </div>
+
+        <button class="vp-reset" id="vp-reset">↺ Restablecer valores</button>
+
+        <div class="fnav" style="margin-top:18px">
+          <button class="bbk" onclick="setS(5);quickText.syncMirrors()">← Textos</button>
+        </div>
+      </div>
+
     </div><!-- /fscroll -->
   </aside>
 
@@ -285,6 +446,8 @@
 <script src="scripts/generator.js"></script>
 <script src="scripts/sectiondnd.js"></script>
 <script src="scripts/moodswitch.js"></script>
+<script src="scripts/quicktext.js"></script>
+<script src="scripts/visualpolish.js"></script>
 <script>
 /* ── Boot ── */
 document.addEventListener('DOMContentLoaded', () => {

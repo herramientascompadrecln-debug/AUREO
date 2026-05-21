@@ -21,7 +21,7 @@ function setS(n) {
     else if (sn < n)  s.classList.add('done');
   });
 
-  for (let i = 1; i <= 3; i++) {
+  for (let i = 1; i <= 4; i++) {
     const line = g('l' + i + (i + 1));
     if (line) line.classList.toggle('done', i < n);
   }

@@ -1,0 +1,188 @@
+/* ── AUREO · VISUAL POLISH CONTROLS — FASE 4D ───────────────────
+   Estilos ÚNICAMENTE para:
+   · Panel de controles en sidebar (sliders, labels, grupos)
+   · Variables CSS en :root del documento exterior
+   
+   NO modifica: templates, rendering, exportación, preview core.
+   NO toca: generator.js, localBuilder.js, livepreview.js, registry.js
+   NO inyecta HTML. Solo CSS variables + clases visuales.
+─────────────────────────────────────────────────────────────── */
+
+/* ── CSS vars del documento exterior (outer preview) ── */
+:root {
+  --vp-outer-glow   : 1;    /* 0-2 — escala .pbody::before */
+  --vp-shadow-o     : 1;    /* 0-2 — escala sombra devframe */
+}
+
+/* ── Outer preview: glow ambient controlado por vp-outer-glow ── */
+.pbody::before {
+  opacity: var(--vp-outer-glow);
+  transition: opacity .35s ease;
+}
+
+/* ── Outer devframe: sombra extra via filter (no conflicta con moods.css box-shadow) ── */
+.devframe {
+  transition:
+    border-color .55s cubic-bezier(.16,1,.3,1),
+    box-shadow   .55s cubic-bezier(.16,1,.3,1),
+    filter       .35s ease;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PANEL DE CONTROLES — UI DE SLIDERS
+═══════════════════════════════════════════════════════════════ */
+
+/* ── Grupo visual ── */
+.vp-group {
+  margin-bottom: 18px;
+}
+
+/* ── Label — mismo estilo que .flbl pero con línea de acento ── */
+.vp-label {
+  display       : flex;
+  align-items   : center;
+  justify-content: space-between;
+  font-size     : 8px;
+  font-weight   : 300;
+  letter-spacing: .44em;
+  text-transform: uppercase;
+  color         : var(--ch-dim);
+  margin-bottom : 10px;
+  gap           : 8px;
+}
+
+/* ── Valor readout ── */
+.vp-val {
+  font-family   : 'Montserrat', sans-serif;
+  font-size     : 9px;
+  font-weight   : 300;
+  letter-spacing: .18em;
+  color         : var(--ch);
+  min-width     : 36px;
+  text-align    : right;
+  flex-shrink   : 0;
+  transition    : color .2s;
+}
+
+/* ── Slider row ── */
+.vp-row {
+  display    : flex;
+  align-items: center;
+  gap        : 12px;
+}
+
+/* ── Slider base ── */
+.vp-slider {
+  -webkit-appearance : none;
+  appearance         : none;
+  width              : 100%;
+  height             : 2px;
+  border-radius      : 2px;
+  background         : rgba(200,169,110,.14);
+  outline            : none;
+  border             : none;
+  cursor             : pointer;
+  transition         : none;
+  padding            : 0;
+  background-clip    : unset;
+}
+
+/* ── Track: Chrome / Safari ── */
+.vp-slider::-webkit-slider-runnable-track {
+  height       : 2px;
+  border-radius: 2px;
+  background   : transparent; /* JS sets gradient inline */
+}
+
+/* ── Track: Firefox ── */
+.vp-slider::-moz-range-track {
+  height       : 2px;
+  border-radius: 2px;
+  background   : rgba(200,169,110,.14);
+}
+
+/* ── Track progress: Firefox ── */
+.vp-slider::-moz-range-progress {
+  height       : 2px;
+  border-radius: 2px;
+  background   : var(--ch);
+}
+
+/* ── Thumb: Chrome / Safari ── */
+.vp-slider::-webkit-slider-thumb {
+  -webkit-appearance : none;
+  appearance         : none;
+  width              : 13px;
+  height             : 13px;
+  border-radius      : 50%;
+  background         : var(--ch);
+  border             : none;
+  box-shadow         : 0 0 8px rgba(200,169,110,.45), 0 0 0 1px rgba(200,169,110,.22);
+  cursor             : pointer;
+  transition         : transform .2s cubic-bezier(.16,1,.3,1),
+                       box-shadow .2s ease;
+  margin-top         : -5.5px;
+}
+.vp-slider::-webkit-slider-thumb:hover,
+.vp-slider:active::-webkit-slider-thumb {
+  transform  : scale(1.3);
+  box-shadow : 0 0 16px rgba(200,169,110,.7), 0 0 0 2px rgba(200,169,110,.35);
+}
+
+/* ── Thumb: Firefox ── */
+.vp-slider::-moz-range-thumb {
+  width      : 13px;
+  height     : 13px;
+  border-radius: 50%;
+  background : var(--ch);
+  border     : none;
+  box-shadow : 0 0 8px rgba(200,169,110,.45);
+  cursor     : pointer;
+  transition : transform .2s cubic-bezier(.16,1,.3,1);
+}
+.vp-slider::-moz-range-thumb:hover {
+  transform : scale(1.3);
+}
+
+/* ── Hover state en el grupo ── */
+.vp-group:hover .vp-label {
+  color: var(--ch-dim);
+}
+.vp-group:hover .vp-val {
+  color: var(--ch-lt);
+}
+
+/* ── Reset button ── */
+.vp-reset {
+  width         : 100%;
+  padding       : 10px;
+  border-radius : 9px;
+  border        : 1px solid var(--border);
+  background    : transparent;
+  font-family   : 'Montserrat', sans-serif;
+  font-size     : 8px;
+  font-weight   : 300;
+  letter-spacing: .38em;
+  text-transform: uppercase;
+  color         : var(--ch-dim);
+  cursor        : pointer;
+  transition    : all .3s;
+  margin-top    : 8px;
+}
+.vp-reset:hover {
+  border-color  : var(--ch);
+  color         : var(--ch);
+  background    : var(--ch-g);
+}
+
+/* ── Accent line divider con icono ── */
+.vp-hint {
+  font-size     : 8px;
+  font-weight   : 300;
+  letter-spacing: .12em;
+  color         : rgba(200,169,110,.22);
+  font-style    : italic;
+  text-align    : center;
+  margin        : 4px 0 20px;
+  line-height   : 1.6;
+}
